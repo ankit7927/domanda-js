@@ -39,7 +39,7 @@ questionService.newAnswer = async (userId, questionId, answer) => {
 
 questionService.latestQuestions = async () => {
     return await modelQuestion.find({})
-        .select('question votes createdAt name')
+        .select('question votes')
         .sort({ createdAt: -1 })
         .limit(15)
         .lean()
@@ -48,7 +48,7 @@ questionService.latestQuestions = async () => {
 
 questionService.unanswredQuestions = async () => {
     return await modelQuestion.find({ answers: { $eq: [] } })
-        .select('question votes createdAt name')
+        .select('question votes')
         .limit(20)
         .sort({ createdAt: -1 })
         .lean()
@@ -96,68 +96,20 @@ questionService.questionQuery = async (query) => {
     return question;
 }
 
-questionService.indexQuestions = async () => {
+questionService.homeFeed = async () => {
     const result = {}
     result.latest = await modelQuestion.find({})
         .select('question')
         .sort({ createdAt: -1 })
-        .limit(15).lean().exec();
+        .limit(4).lean().exec();
 
     result.trending = await modelQuestion.find({})
-        .select('question votes createdAt name')
+        .select('question')
         .sort({ views: -1, answers: -1 })
-        .limit(10).lean().exec();
+        .limit(5).lean().exec();
 
     return result;
 }
 
-// TODO check if user or question is null or not
-questionService.voteQuestion = async (userId, quesId) => {
-    const user = await modelUser.findOne({ _id: userId })
-        .select("question")
-        .exec();
-
-    const question = await questionSchema.findById({ _id: quesId })
-        .select("votes").exec();
-
-    if (user.question.voted.questions.includes(quesId)) {
-        user.question.voted.questions.pull(quesId)
-        question.votes = question.votes - 1
-    } else {
-        user.question.voted.questions.push(quesId)
-        question.votes = question.votes + 1
-    }
-
-    await user.save();
-    await question.save();
-
-    return question.votes;
-}
-
-// TODO check if user or question is null or not
-questionService.voteAnswer = async (userId, quesId, ansId) => {
-    const user = await modelUser.findOne({ _id: userId })
-        .select("question")
-        .exec();
-
-    const question = await questionSchema.findById({ _id: quesId })
-        .select("votes answers").exec()
-
-    const x = question.answers.find(item => item._id == ansId)
-    let votes = 0
-
-    if (user.question.voted.answers.includes(ansId)) {
-        user.question.voted.answers.pull(ansId)
-        votes = x.votes = x.votes - 1
-    } else {
-        user.question.voted.answers.push(ansId)
-        votes = x.votes = x.votes + 1
-    }
-
-    await user.save()
-    await question.save()
-
-    return votes
-}
 
 module.exports = questionService;

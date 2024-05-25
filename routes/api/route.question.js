@@ -41,4 +41,31 @@ router.get("/query", async (req, res) => {
     }
 })
 
+router.get("/latest", async (req, res)=> {
+    try {
+        res.json(await questionService.latestQuestions())
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
+router.get("/unanswerd", async (req, res)=> {
+    try {
+        res.json(await questionService.unanswredQuestions())
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
+router.get("/home-feed", async (req, res)=> {
+    try {
+        res.json(await questionService.homeFeed())
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
 module.exports = router;
