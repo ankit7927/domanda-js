@@ -1,6 +1,5 @@
 const modelUser = require("../models/model.user");
 const modelQuestion = require("../models/model.question");
-const modelAnswer = require("../models/model.answer");
 
 const questionService = {}
 
@@ -20,6 +19,17 @@ questionService.newQuestion = async (userId, title, content, tags, slug) => {
         })
 
     return newQuestion;
+}
+
+questionService.deleteQuestion = async (userId, questionId) => {
+    await modelQuestion.findByIdAndDelete({ _id: questionId })
+    await modelUser.findOneAndUpdate({ _id: userId }, {
+        "$pull": {
+            "question.asked": questionId
+        }
+    })
+
+    return { message: "question deleted" }
 }
 
 questionService.latestQuestions = async () => {

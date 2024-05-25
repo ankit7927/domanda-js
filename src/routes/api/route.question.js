@@ -28,6 +28,17 @@ router.post("/new", verifyJWT, async (req, res) => {
     }
 });
 
+router.delete("delete/:questionId", verifyJWT, async (req, res) => {
+    const questionId = req.params.questionId;
+
+    try {
+        res.json(await questionService.deleteQuestion(questionId))
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
 router.get("/query", async (req, res) => {
     const query = req.query.query;
 
