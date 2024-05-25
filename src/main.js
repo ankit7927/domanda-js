@@ -10,9 +10,15 @@ const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false, }));
-app.engine('handlebars', engine({extname: ".hbs"}));
+app.engine('handlebars', engine({
+    extname: ".hbs",
+    partialsDir: path.join(__dirname, "views/partials"),
+    layoutsDir: path.join(__dirname, "views/layouts"),
+    
+}));
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "views"));
+app.set("")
 
 if (process.env.NODE_ENV === "dev") {
     const morgan = require("morgan");
@@ -22,8 +28,8 @@ if (process.env.NODE_ENV === "dev") {
 connectDB()
 
 app.use("/api", require("./routes/api/route.root"))
-app.use("", (req, res)=>{
-    res.render("index.hbs")
+app.use("", (req, res) => {
+    res.render("base.hbs", { layout: "layouts/index"})
 })
 
 mongoose.connection.once("open", () => {
