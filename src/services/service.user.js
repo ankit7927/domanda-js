@@ -26,7 +26,7 @@ userService.updateProfile = async (userId, name, email) => {
     return existingUser;
 }
 
-userService.saveORremoveQuestion = async (userId, quesId) => {
+userService.saveUnSaveQuestion = async (userId, quesId) => {
     const user = await modelUser.findOne({ _id: userId })
         .select("question");
 
@@ -36,20 +36,20 @@ userService.saveORremoveQuestion = async (userId, quesId) => {
         user.question.saved.push(quesId)
         await user.save()
 
-        return "saved"
+        return { message: "saved" }
     } else {
         user.question.saved.pull(quesId)
         await user.save()
 
-        return "removed"
+        return { message: "removed" }
     }
 }
 
 userService.getProfile = async (userId) => {
-    return await modelUser.findOne({_id:userId})
-        .select("name email username")// question.asked question.answerd")
-        // .populate("question.asked", "question")
-        // .populate("question.answerd", "question")
+    return await modelUser.findOne({ _id: userId })
+        .select("name email username")
+        .populate("question.asked", "question")
+        .populate("question.saved", "question")
         .lean().exec()
 }
 

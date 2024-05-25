@@ -52,14 +52,28 @@ questionService.questionByID = async (quesId) => {
     return await modelQuestion.findOne({ _id: quesId })
         .select("-tags")
         .populate("answers")
-        .lean().exec()
+        .populate("creator", "name username")
+        .populate({
+            path:"answers",
+            populate:{
+                path: "creator",
+                select:"name username"
+            }
+        }).lean().exec()
 }
 
 questionService.questionBySlug = async (slug) => {
     return await modelQuestion.findOne({ slug: slug })
         .select("-tags")
         .populate("answers")
-        .lean().exec()
+        .populate("creator", "name username")
+        .populate({
+            path:"answers",
+            populate:{
+                path: "creator",
+                select:"name username"
+            }
+        }).lean().exec()
 }
 
 questionService.questionQuery = async (query) => {
@@ -91,20 +105,14 @@ questionService.questionQuery = async (query) => {
 questionService.homeFeed = async () => {
     const result = {}
     result.latest = await modelQuestion.find({})
-        .select('question votes')
+        .select('question votes slug')
         .sort({ createdAt: -1 })
         .limit(4).lean().exec();
 
     result.trending = await modelQuestion.find({})
-        .select('question votes')
+        .select('question votes slug')
         .sort({ views: -1, answers: -1 })
         .limit(5).lean().exec();
-
-    result.unanswerd = await modelQuestion.find({ answers: { $eq: [] } })
-        .select('question')
-        .limit(7)
-        .sort({ createdAt: -1 })
-        .lean().exec();
 
     return result;
 }

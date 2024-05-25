@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+    {{> links}}
+</head>
+
+<body>
+    {{> navbar}}
+
+    <main class="container">
+        <section class="py-4">
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        <p class="text-muted">by <span class="fw-bold">{{creator.username}}</span> on some date</p>
+                        <div class="row">
+                            <div class="col-10">
+                                <h2 class="fw-bold">{{question.title}}</h2>
+                            </div>
+                            {{!-- TODO add action button --}}
+                        </div>
+                        <p>{{question.content}}</p>
+                    </div>
+                    <div class="py-3">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5>Answers (10)</h5>
+                            <button class="btn btn-secondary">answer</button>
+                        </div>
+                        {{# each answers }}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <p class="card-text">this is a test answer with some test hello </p>
+                                </div>
+                            </div>
+                            <div class="card-footer border-0 text-muted">
+                                <div class='row'>
+                                    <div class="col-10">
+                                        by <span class="fw-bold">{{creator.username}}</span> on date
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-center">
+                                        <button class="btn btn-light border-0 btn-sm">
+                                            vote
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="col-md-4 py-4">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Similler Questions</h5>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Blogs</h5>
+                            <hr />
+                            <p class="card-text">commign soon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html

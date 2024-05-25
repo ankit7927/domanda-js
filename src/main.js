@@ -2,35 +2,28 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const connectDB = require("./configs/config.db");
-const { engine } = require("express-handlebars");
-const path = require("path")
+const hbs = require("hbs");
+const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false, }));
-app.engine('handlebars', engine({
-    extname: ".hbs",
-    partialsDir: path.join(__dirname, "views/partials"),
-    layoutsDir: path.join(__dirname, "views/layouts"),
-    
-}));
-app.set('view engine', 'handlebars');
+
+app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, "views"));
-app.set("")
+hbs.registerPartials(path.join(__dirname, "views/partials"));
 
 if (process.env.NODE_ENV === "dev") {
     const morgan = require("morgan");
     app.use(morgan("dev"));
 }
 
-connectDB()
+connectDB();
 
 app.use("/api", require("./routes/api/route.root"))
-app.use("", (req, res) => {
-    res.render("base.hbs", { layout: "layouts/index"})
-})
+app.use("", require("./routes/site/route.root"))
 
 mongoose.connection.once("open", () => {
     console.log("connected to database");

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+    {{> links}}
+</head>
+
+<body>
+    {{> navbar}}
+
+    <main>
+        <section class="hero py-4">
+            <div class="container">
+                <h1 class="text-center mb-4">Ask Anything, Get Answers</h1>
+                <input type="search" class="form-control" placeholder="Search for a question..." />
+            </div>
+        </section>
+        <section class="questions py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2 class="mb-4">Trending Questions</h2>
+                        {{# each trending }}
+                        <div class="card mb-3">
+                            <a class="text-decoration-none" href="/question/{{this.slug}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{this.question.title}}</h5>
+                                    <p class="card-text">{{this.question.content}}</p>
+                                </div>
+                            </a>
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="col-md-4">
+                        <h2 class="mb-4">Latest Questions</h2>
+                        <div class="list-group">
+                            {{# each trending }}
+                            <a href="/question/{{this.slug}}" class="list-group-item list-group-item-action">
+                                {{this.question.title}}
+                            </a>
+                            {{/each }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
