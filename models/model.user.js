@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
         saved: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
         voted: {
             questions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }],
-            answers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Question" }]
+            answers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Answer" }]
         }
     }
 })
