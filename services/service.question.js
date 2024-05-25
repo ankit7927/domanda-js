@@ -1,7 +1,6 @@
 const modelUser = require("../models/model.user");
 const modelQuestion = require("../models/model.question");
 const modelAnswer = require("../models/model.answer");
-const errorGen = require("../utilities/errorGen");
 
 const questionService = {}
 
