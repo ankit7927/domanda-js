@@ -4,7 +4,7 @@
   "description": "question and answer platfrom ",
   "main": "main.js",
   "scripts": {
-    "dev": "nodemon main.js"
+    "dev": "nodemon src/main.js"
   },
   "repository": {
     "type": "git",
