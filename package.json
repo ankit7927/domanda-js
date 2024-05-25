@@ -4,7 +4,7 @@
   "description": "question and answer platfrom ",
   "main": "main.js",
   "scripts": {
-    "dev": "nodemon src/main.js"
+    "dev": "nodemon src/main.js --watch src -e js,hbs"
   },
   "repository": {
     "type": "git",
