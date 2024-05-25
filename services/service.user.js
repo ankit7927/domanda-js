@@ -1,11 +1,10 @@
-const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt');
 const errorGen = require("../utilities/errorGen");
 const modelUser = require("../models/model.user");
 
 const userService = {}
 
-userService.signup = async (name, email, username, password) => {
+userService.newAccount = async (name, email, username, password) => {
     const hashpass = await bcrypt.hash(password, 10);
     await modelUser.create({ username, name, email, "password": hashpass });
     return { "message": "user created" }
@@ -48,9 +47,9 @@ userService.saveORremoveQuestion = async (userId, quesId) => {
 
 userService.getProfile = async (userId) => {
     return await modelUser.findOne({_id:userId})
-        .select("name email username question.asked question.answerd")
-        .populate("question.asked", "question")
-        .populate("question.answerd", "question")
+        .select("name email username")// question.asked question.answerd")
+        // .populate("question.asked", "question")
+        // .populate("question.answerd", "question")
         .lean().exec()
 }
 
