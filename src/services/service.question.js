@@ -22,37 +22,19 @@ questionService.newQuestion = async (userId, title, content, tags, slug) => {
     return newQuestion;
 }
 
-questionService.newAnswer = async (userId, questionId, answer) => {
-    const newAnswer = await modelAnswer.create({
-        answer: answer,
-        creator: userId,
-    });
-
-    await modelQuestion.findOneAndUpdate({ _id: questionId }, {
-        "$push": {
-            "answers": newAnswer._id
-        }
-    });
-
-    return { "message": "answer added" }
-}
-
 questionService.latestQuestions = async () => {
     return await modelQuestion.find({})
         .select('question votes')
         .sort({ createdAt: -1 })
         .limit(15)
-        .lean()
-        .exec();
+        .lean().exec();
 }
 
 questionService.unanswredQuestions = async () => {
     return await modelQuestion.find({ answers: { $eq: [] } })
         .select('question votes')
-        .limit(20)
-        .sort({ createdAt: -1 })
-        .lean()
-        .exec();
+        .limit(20).sort({ createdAt: -1 })
+        .lean().exec();
 }
 
 
@@ -99,14 +81,20 @@ questionService.questionQuery = async (query) => {
 questionService.homeFeed = async () => {
     const result = {}
     result.latest = await modelQuestion.find({})
-        .select('question')
+        .select('question votes')
         .sort({ createdAt: -1 })
         .limit(4).lean().exec();
 
     result.trending = await modelQuestion.find({})
-        .select('question')
+        .select('question votes')
         .sort({ views: -1, answers: -1 })
         .limit(5).lean().exec();
+
+    result.unanswerd = await modelQuestion.find({ answers: { $eq: [] } })
+        .select('question')
+        .limit(7)
+        .sort({ createdAt: -1 })
+        .lean().exec();
 
     return result;
 }
