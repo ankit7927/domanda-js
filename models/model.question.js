@@ -8,6 +8,10 @@ const questionSchema = new mongoose.Schema({
             required: true
         }
     },
+    slug: {
+        type:String,
+        unique: true
+    },
     creator: {
         type: mongoose.Types.ObjectId,
         ref: "User"
