@@ -10,11 +10,11 @@ userService.newAccount = async (name, email, username, password) => {
     return { "message": "user created" }
 }
 
-userService.updateProfile = async (userId, name, email) => {
+userService.updateProfile = async (userId, name, email, username) => {
     const existingUser = await modelUser.findOneAndUpdate({ _id: userId },
         {
             "$set": {
-                name: name, email: email
+                name: name, email: email, username: username
             }
         },
         { new: true })

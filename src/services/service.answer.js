@@ -4,18 +4,17 @@ const modelAnswer = require("../models/model.answer");
 
 const answerService = {}
 
-answerService.newAnswer = async (userId, questionId, answer)=> {
+answerService.newAnswer = async (userId, questionId, answer) => {
     const newAnswer = await modelAnswer.create({
         answer: answer,
         creator: userId,
     });
 
-    await modelQuestion.findOneAndUpdate({ _id: questionId }, {
+    const updated = await modelQuestion.findOneAndUpdate({ _id: questionId }, {
         "$push": {
             "answers": newAnswer._id
         }
-    });
-
+    }, {new:true});
     return { "message": "answer added" }
 }
 

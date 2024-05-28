@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+    {{> links}}
+</head>
+
+<body>
+    {{> navbar}}
+    <section class="ask-question py-5">
+        <div class="container">
+            <h1 class="text-center mb-4">Ask a Question</h1>
+            <form action="/question/new" method="post">
+                <div class="mb-3">
+                    <label htmlFor="questionTitle" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="questionTitle"
+                        placeholder="Enter your question title" name="title" />
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="questionBody" class="form-label">Body</label>
+                    <textarea class="form-control" id="questionBody" rows="10"
+                       name="content" placeholder="Enter your question description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label htmlFor="questionTags" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="questionTags"
+                       name="tags" placeholder="Enter your question tags (separated by commas)"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    {{> scripts}}
+</body>
+
+</html>

@@ -27,14 +27,15 @@
                     </div>
                     <div class="py-3">
                         <div class="d-flex justify-content-between mb-3">
-                            <h5>Answers (10)</h5>
-                            <button class="btn btn-secondary">answer</button>
+                            <h5>Answers</h5>
+                            <button class="btn btn-outline-primary" data-mdb-ripple-init data-mdb-modal-init
+                                data-mdb-target="#exampleModal">Answer</button>
                         </div>
                         {{# each answers }}
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="row">
-                                    <p class="card-text">this is a test answer with some test hello </p>
+                                    <p class="card-text">{{answer}}</p>
                                 </div>
                             </div>
                             <div class="card-footer border-0 text-muted">
@@ -71,8 +72,46 @@
                 </div>
             </div>
         </section>
-    </main>
 
+        <section>
+            <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Answer</h5>
+                            <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form method="post" action="/answer/new-answer">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="questionid" class="col-form-label">QuestionId:</label>
+                                    <input type="text" class="form-control disabled" id="questionid" value="{{_id}}"
+                                        name="questionId" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Answer:</label>
+                                    <textarea class="form-control" id="message-text" rows="6" name="answer"
+                                        placeholder="write your answer here..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <p class="text-muted">you must be signed in to answer*</p>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-mdb-ripple-init
+                                    data-mdb-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Add Answer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    {{> scripts}}
 </body>
 
-</html
+</html>

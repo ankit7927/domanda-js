@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+    {{> links}}
+</head>
+
+<body>
+    {{> navbar}}
+    <section class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class='mb-3'>
+                        <div class="btn-group">
+                            <input type="radio" class="btn-check" name="category" id="Latest" autocomplete="off" />
+                            <label class="btn btn-secondary" for="Latest" data-mdb-ripple-init>Latest</label>
+
+                            <input type="radio" class="btn-check" name="category" id="Top" autocomplete="off" />
+                            <label class="btn btn-secondary" for="Top" data-mdb-ripple-init>Top</label>
+
+                            <input type="radio" class="btn-check" name="category" id="Unanswerd" autocomplete="off" />
+                            <label class="btn btn-secondary" for="Unanswerd" data-mdb-ripple-init>Unanserd</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a>{question.question.title}</a>
+                                </h5>
+                                <p class="card-text">{question.question.content}</p>
+                            </div>
+                            <div class="card-footer text-muted border-0">
+                                <div class='row'>
+                                    <div class="col-10">
+                                        Asked by {question.name} on {new Date(question.createdAt).toLocaleDateString()}
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-end align-items-center">
+                                        <button class="btn btn-light btn-sm border-0">
+                                            vote
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <h2 class="mb-3">Blogs By Question</h2>
+                    <div className="card">
+                        <div className="card-body">
+                            <span>Coming soon....</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{> scripts}}
+</body>
+
+</html>

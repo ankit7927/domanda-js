@@ -25,7 +25,7 @@
                         <h2 class="mb-4">Trending Questions</h2>
                         {{# each trending }}
                         <div class="card mb-3">
-                            <a class="text-decoration-none" href="/question/{{this.slug}}">
+                            <a class="text-decoration-none" href="/question/get/{{this.slug}}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{this.question.title}}</h5>
                                     <p class="card-text">{{this.question.content}}</p>
@@ -38,7 +38,7 @@
                         <h2 class="mb-4">Latest Questions</h2>
                         <div class="list-group">
                             {{# each trending }}
-                            <a href="/question/{{this.slug}}" class="list-group-item list-group-item-action">
+                            <a href="/question/get/{{this.slug}}" class="list-group-item list-group-item-action">
                                 {{this.question.title}}
                             </a>
                             {{/each }}

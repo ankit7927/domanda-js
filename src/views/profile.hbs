@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base</title>
+    {{> links}}
+</head>
+
+<body>
+    {{> navbar}}
+
+    <main>
+        <section>
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img alt="user dp" class="card-img-top"
+                                        src="https://cdn-icons-png.freepik.com/512/4515/4515630.png" />
+                                    <div class="mt-3">
+                                        <h4>{{name}}</h4>
+                                        <p>{{username}}</p>
+                                        <button class="btn btn-outline-danger">Logout</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form class="row g-3" autocomplete="off" method="post" action="/user/profile">
+                                    <div class="col-md-6">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" placeholder="name"
+                                            name="name" value="{{name}}" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Email"
+                                            name="email" value="{{email}}" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="gender" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username" placeholder="Username"
+                                            name="username" value="{{username}}"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="profile" class="form-label">Profile Image</label>
+                                        <input type="file" class="form-control" id="profile" />
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="mt-2">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-asked-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-asked" type="button" role="tab" aria-controls="nav-asked"
+                                        aria-selected="true">Asked</button>
+                                    <button class="nav-link" id="nav-saved-tab" data-bs-toggle="tab"
+                                        data-bs-target="#nav-saved" type="button" role="tab" aria-controls="nav-saved"
+                                        aria-selected="false">Saved</button>
+                                </div>
+                            </nav>
+
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-asked" role="tabpanel"
+                                    aria-labelledby="nav-asked-tab">
+                                    <ul class="list-group mt-3">
+                                        {{#each question.asked}}
+                                        <div class="list-group-item list-group-item-action" key={que._id}>
+                                            <div class="">
+                                                <a class="mb-1 h5">{{this.question.title}}</a>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    remove
+                                                </button>
+                                            </div>
+                                            <small class="text-muted">created at</small>
+                                        </div>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade" id="nav-saved" role="tabpanel"
+                                    aria-labelledby="nav-saved-tab">
+                                    <ul class="list-group mt-3">
+                                        {{#each question.saved}}
+                                        <div class="list-group-item list-group-item-action" key={que._id}>
+                                            <div class="">
+                                                <a class="mb-1 h5">{{this.question.title}}</a>
+                                                <button class="btn btn-outline-danger btn-sm">
+                                                    remove
+                                                </button>
+                                            </div>
+                                            <small class="text-muted">created at</small>
+                                        </div>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    {{> scripts}}
+</body>
+
+</html>
