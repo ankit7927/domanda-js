@@ -36,8 +36,8 @@
                                 <form class="row g-3" autocomplete="off" method="post" action="/user/profile">
                                     <div class="col-md-6">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" placeholder="name"
-                                            name="name" value="{{name}}" />
+                                        <input type="text" class="form-control" id="name" placeholder="name" name="name"
+                                            value="{{name}}" />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="email" class="form-label">Email</label>
@@ -61,51 +61,19 @@
                         </div>
 
                         <div class="mt-2">
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-asked-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-asked" type="button" role="tab" aria-controls="nav-asked"
-                                        aria-selected="true">Asked</button>
-                                    <button class="nav-link" id="nav-saved-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-saved" type="button" role="tab" aria-controls="nav-saved"
-                                        aria-selected="false">Saved</button>
+                            <ul class="list-group mt-3">
+                                {{#each question.asked}}
+                                <div class="list-group-item list-group-item-action" key={que._id}>
+                                    <div class="">
+                                        <a class="mb-1 h5">{{this.question.title}}</a>
+                                        <button class="btn btn-outline-danger btn-sm">
+                                            remove
+                                        </button>
+                                    </div>
+                                    <small class="text-muted">created at</small>
                                 </div>
-                            </nav>
-
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-asked" role="tabpanel"
-                                    aria-labelledby="nav-asked-tab">
-                                    <ul class="list-group mt-3">
-                                        {{#each question.asked}}
-                                        <div class="list-group-item list-group-item-action" key={que._id}>
-                                            <div class="">
-                                                <a class="mb-1 h5">{{this.question.title}}</a>
-                                                <button class="btn btn-outline-danger btn-sm">
-                                                    remove
-                                                </button>
-                                            </div>
-                                            <small class="text-muted">created at</small>
-                                        </div>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                                <div class="tab-pane fade" id="nav-saved" role="tabpanel"
-                                    aria-labelledby="nav-saved-tab">
-                                    <ul class="list-group mt-3">
-                                        {{#each question.saved}}
-                                        <div class="list-group-item list-group-item-action" key={que._id}>
-                                            <div class="">
-                                                <a class="mb-1 h5">{{this.question.title}}</a>
-                                                <button class="btn btn-outline-danger btn-sm">
-                                                    remove
-                                                </button>
-                                            </div>
-                                            <small class="text-muted">created at</small>
-                                        </div>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                            </div>
+                                {{/each}}
+                            </ul>
                         </div>
                     </div>
                 </div>
