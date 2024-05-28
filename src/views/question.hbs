@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div>
-                        <p class="text-muted">by <span class="fw-bold">{{creator.username}}</span> on some date</p>
+                        <p class="text-muted">by <span class="fw-bold">{{creator.username}}</span> on {{#parsedate date=createdAt }}{{/parsedate}}</p>
                         <div class="row">
                             <div class="col-10">
                                 <h2 class="fw-bold">{{question.title}}</h2>
@@ -41,7 +41,7 @@
                             <div class="card-footer border-0 text-muted">
                                 <div class='row'>
                                     <div class="col-10">
-                                        by <span class="fw-bold">{{creator.username}}</span> on date
+                                        by <span class="fw-bold">{{creator.username}}</span> on {{#parsedate date=createdAt }}{{/parsedate}}
                                     </div>
                                     <div class="col-2 d-flex justify-content-end align-items-center">
                                         <button class="btn btn-light border-0 btn-sm">
