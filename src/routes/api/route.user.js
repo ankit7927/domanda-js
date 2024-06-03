@@ -31,7 +31,7 @@ router.put("/update", verifyJWT, async (req, res) => {
 
 router.get("/get", verifyJWT,async (req, res)=> {
     const userId = req.user._id;
-
+    console.log(userId);
     try {
         return res.json(await userService.getProfile(userId))
     } catch (error) {

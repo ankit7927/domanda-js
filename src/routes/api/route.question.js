@@ -13,6 +13,17 @@ router.get("/get/:questionId", async (req, res) => {
     }
 })
 
+router.get("/get/slug/:slug", async (req, res) => {
+    const slug = req.params.slug;
+
+    try {
+        res.json(await questionService.questionBySlug(slug))
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
 router.post("/new", verifyJWT, async (req, res) => {
     const userId = req.user._id;
     const { title, content, tags } = req.body;

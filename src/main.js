@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const connectDB = require("./configs/config.db");
 const cookieParser = require("cookie-parser")
 const datetime = require("date-and-time");
+const cors = require("cors")
+const allowedOrigins = require("./configs/config.cors")
 const hbs = require("hbs");
 const path = require("path");
 
@@ -13,6 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false, }));
 app.use(cookieParser())
+app.use(cors(allowedOrigins))
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, "views"));
 hbs.registerPartials(path.join(__dirname, "views/partials"));
