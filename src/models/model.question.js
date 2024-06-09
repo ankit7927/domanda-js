@@ -28,11 +28,7 @@ const questionSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    },
-    answers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Answer"
-    }]
+    }
 })
 
 module.exports = mongoose.model("Question", questionSchema);

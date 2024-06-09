@@ -16,14 +16,14 @@
             <div class="row">
                 <div class="col-md-8">
                     <div>
-                        <p class="text-muted">by <span class="fw-bold">{{creator.username}}</span> on {{#parsedate date=createdAt }}{{/parsedate}}</p>
+                        <p class="text-muted">by <span class="fw-bold">{{question.creator.username}}</span> on </p>
                         <div class="row">
                             <div class="col-10">
-                                <h2 class="fw-bold">{{question.title}}</h2>
+                                <h2 class="fw-bold">{{question.question.title}}</h2>
                             </div>
                             {{!-- TODO add action button --}}
                         </div>
-                        <p>{{question.content}}</p>
+                        <p>{{question.question.content}}</p>
                     </div>
                     <div class="py-3">
                         <div class="d-flex justify-content-between mb-3">
@@ -35,19 +35,10 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="row">
-                                    <p class="card-text">{{answer}}</p>
+                                    <p class="card-text">{{this.answer}}</p>
                                 </div>
-                            </div>
-                            <div class="card-footer border-0 text-muted">
-                                <div class='row'>
-                                    <div class="col-10">
-                                        by <span class="fw-bold">{{creator.username}}</span> on {{#parsedate date=createdAt }}{{/parsedate}}
-                                    </div>
-                                    <div class="col-2 d-flex justify-content-end align-items-center">
-                                        <button class="btn btn-light border-0 btn-sm">
-                                            vote
-                                        </button>
-                                    </div>
+                                <div class="pt-2">
+                                    by <span class="fw-bold">{{this.creator.username}}</span> on 
                                 </div>
                             </div>
                         </div>
@@ -58,14 +49,12 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Similler Questions</h5>
-                            <hr />
                         </div>
                     </div>
 
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Blogs</h5>
-                            <hr />
                             <p class="card-text">commign soon</p>
                         </div>
                     </div>
@@ -83,12 +72,12 @@
                             <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
                                 aria-label="Close"></button>
                         </div>
-                        <form method="post" action="/answer/new-answer">
+                        <form method="post" action="/answer/new-answer?success=/question/get/{{question.slug}}">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="questionid" class="col-form-label">QuestionId:</label>
-                                    <input type="text" class="form-control" id="questionid" value="{{_id}}"
-                                        name="questionId" />
+                                    <input type="text" class="form-control" id="questionid" value="{{question._id}}"
+                                        name="questionId" aria-disabled="true"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Answer:</label>

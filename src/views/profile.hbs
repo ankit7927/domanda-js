@@ -47,7 +47,7 @@
                                     <div class="col-md-6">
                                         <label for="gender" class="form-label">Username</label>
                                         <input type="text" class="form-control" id="username" placeholder="Username"
-                                            name="username" value="{{username}}"/>
+                                            name="username" value="{{username}}" />
                                     </div>
                                     <div class="col-md-6">
                                         <label for="profile" class="form-label">Profile Image</label>
@@ -64,8 +64,9 @@
                             <ul class="list-group mt-3">
                                 {{#each question.asked}}
                                 <div class="list-group-item list-group-item-action" key={que._id}>
-                                    <div class="">
-                                        <a class="mb-1 h5">{{this.question.title}}</a>
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <a href="/question/get/{{this.slug}}"
+                                            class="mb-1 h5">{{this.question.title}}</a>
                                         <button class="btn btn-outline-danger btn-sm">
                                             remove
                                         </button>

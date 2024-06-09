@@ -48,7 +48,7 @@ userService.saveUnSaveQuestion = async (userId, quesId) => {
 userService.getProfile = async (userId) => {
     return await modelUser.findOne({ _id: userId })
         .select("name email username")
-        .populate("question.asked", "question")
+        .populate("question.asked", "question slug")
         .populate("question.saved", "question")
         .lean().exec()
 }

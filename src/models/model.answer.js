@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 
 const answerSchema = new mongoose.Schema({
+    questionId: mongoose.Schema.Types.ObjectId,
     answer: {
         type: String,
         required: true
     },
-    creator:{
-        type:mongoose.Schema.Types.ObjectId,
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
     createdAt: {

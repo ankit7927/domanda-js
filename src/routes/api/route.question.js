@@ -90,4 +90,13 @@ router.get("/home-feed", async (req, res)=> {
     }
 })
 
+router.get("/explore", async (req, res)=> {
+    try {
+        res.json(await questionService.getExplore())
+    } catch (error) {
+        console.log(error);
+        return res.status(error.status || 500).json({ "message": "something went wrong" })
+    }
+})
+
 module.exports = router;

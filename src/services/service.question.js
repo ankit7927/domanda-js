@@ -1,5 +1,7 @@
 const modelUser = require("../models/model.user");
 const modelQuestion = require("../models/model.question");
+const modelAnswer = require("../models/model.answer");
+
 
 const questionService = {}
 
@@ -49,31 +51,31 @@ questionService.unanswredQuestions = async () => {
 
 
 questionService.questionByID = async (quesId) => {
-    return await modelQuestion.findOne({ _id: quesId })
+    const result = {}
+    result.question = await modelQuestion.findOne({ _id: quesId })
         .select("-tags")
-        .populate("answers")
         .populate("creator", "name username")
-        .populate({
-            path:"answers",
-            populate:{
-                path: "creator",
-                select:"name username"
-            }
-        }).lean().exec()
+        .lean().exec()
+
+    result.answers = await modelAnswer.find({ questionId: quesId })
+        .populate("creator", "name username")
+        .lean().exec()
+
+    return result
 }
 
 questionService.questionBySlug = async (slug) => {
-    return await modelQuestion.findOne({ slug: slug })
+    const result = {}
+    result.question = await modelQuestion.findOne({ slug: slug })
         .select("-tags")
-        .populate("answers")
         .populate("creator", "name username")
-        .populate({
-            path:"answers",
-            populate:{
-                path: "creator",
-                select:"name username"
-            }
-        }).lean().exec()
+        .lean().exec()
+
+    result.answers = await modelAnswer.find({ questionId: result.question._id })
+        .populate("creator", "name username")
+        .lean().exec()
+
+    return result
 }
 
 questionService.questionQuery = async (query) => {
@@ -115,6 +117,13 @@ questionService.homeFeed = async () => {
         .limit(5).lean().exec();
 
     return result;
+}
+
+questionService.getExplore = async () => {
+    return await modelQuestion.find({})
+        .select('question slug')
+        .sort({ createdAt: -1 })
+        .limit(30).lean().exec();
 }
 
 

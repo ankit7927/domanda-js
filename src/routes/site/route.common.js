@@ -11,8 +11,13 @@ router.get("", async (req, res) => {
     }
 })
 
-router.get("/explore", (req, res) => {
-    res.render("questions")
+router.get("/explore", async (req, res) => {
+    try {
+        const data = await questionService.getExplore()
+        return res.render("questions", {questions:data})
+    } catch (error) {
+        return res.render("notfound")
+    }
 })
 
 router.get("/new-question", verifySessionJWT, (req, res) => {
