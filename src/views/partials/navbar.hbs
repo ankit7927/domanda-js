@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex w-auto" href="/">Domanda</a>
+            <a class="navbar-brand" href="/">Domanda</a>
             <button data-mdb-collapse-init class="navbar-toggler" type="button" data-mdb-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
@@ -18,7 +18,16 @@
                         <a class="nav-link" href="/user/profile">Profile</a>
                     </li>
                 </ul>
+                <form class="d-flex input-group w-auto">
+                    <input type="search" class="form-control" placeholder="Type query" aria-label="Search" />
+                    <button data-mdb-ripple-init class="btn btn-outline-primary" type="button"
+                        data-mdb-ripple-color="dark">
+                        Search
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
+
+
 </header>

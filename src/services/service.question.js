@@ -70,7 +70,7 @@ questionService.questionBySlug = async (slug) => {
         .select("-tags")
         .populate("creator", "name username")
         .lean().exec()
-
+    console.log(result.question);
     result.answers = await modelAnswer.find({ questionId: result.question._id })
         .populate("creator", "name username")
         .lean().exec()

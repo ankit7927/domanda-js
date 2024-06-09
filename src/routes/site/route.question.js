@@ -22,7 +22,6 @@ router.get("/get/:slug", async (req, res) => {
     
     try {
         const data = await questionService.questionBySlug(slug)
-        console.log(data);
         return res.render("question", data)
     } catch (error) {
         console.log(error);
