@@ -7,7 +7,7 @@ router.post("/new", verifySessionJWT, async (req, res) => {
     const { title, content, tags } = req.body;
     if (!content) return res.redirect("/question/new?error=question cant be empty")
 
-    const slug = title?.replace(" ", "-") + "-" + content.slice(0, 22).replace(" ", "-")
+    const slug = title.replace(" ", "-")
 
     try {
         await questionService.newQuestion(userId, title, content, tags, slug)
