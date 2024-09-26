@@ -1,0 +1,25 @@
+services:
+    server:
+        build:
+            context: .
+            dockerfile: dockerfile
+        image: domandajs
+        container_name: domandajs
+        env_file:
+            - .env
+        ports:
+            - 8000:8000
+        depends_on:
+            - database
+        command: node src/main.js
+
+    database:
+        image: mongo
+        container_name: domandajs-db
+        ports:
+            - 27017:27017
+        env_file:
+            - .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
