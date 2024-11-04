@@ -10,11 +10,14 @@ services:
         ports:
             - 8000:8000
         depends_on:
-            - database
+            database:
+                condition: service_healthy
+        networks:
+            - domandajs-network
         command: node src/main.js
 
     database:
-        image: mongo
+        image: mongo:8.0
         container_name: domandajs-db
         ports:
             - 27017:27017
@@ -23,3 +26,24 @@ services:
         environment:
             - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
             - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+        volumes:
+            - mongo-data:/data/db
+            - mongo-db-config:/data/configdb
+        networks:
+            - domandajs-network
+        healthcheck:
+            test: ["CMD","mongosh", "--eval", "db.adminCommand('ping')"]
+            interval: 5s
+            timeout: 5s
+            retries: 3
+            start_period: 5s
+
+volumes:
+    mongo-data:
+        name: "mongo-data"
+    mongo-db-config:
+        name: "mongo-config"
+
+networks:
+    domandajs-network:
+        driver: bridge
